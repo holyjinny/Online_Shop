@@ -1,0 +1,3 @@
+# add ignore
+.vscode/*
+backend-spring/src/test
