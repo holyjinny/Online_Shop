@@ -2,6 +2,9 @@ plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java'
+
+    // gradle이 빌드되면서 npm 명령어 사용하기 위해
+    id "com.github.node-gradle.node" version "3.4.0"
 }
 
 group = 'com.onlineshop'

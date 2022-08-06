@@ -1,0 +1,63 @@
+/*-------------------- TOP HEADING START --------------------*/
+
+.topCategory {
+    position: relative;
+}
+
+.heading .heading-left .fa {
+    font-size: 30px;
+}
+
+.heading .heading-left h2 {
+    font-size: 25px;
+    margin: 5px;
+}
+
+.heading .heading-right,
+.heading .heading-right .fa {
+    text-align: right;
+    color: gray;
+}
+
+/*-------------------- TOP HEADING END --------------------*/
+
+/*-------------------- TOP CATEGORY START --------------------*/
+
+.topCategory .box {
+    margin: 0 20px;
+}
+
+.topCategory img {
+    width: 60%;
+    height: 40%;
+}
+
+.topCategory .nametop {
+    position: relative;
+    width: 100%;
+}
+
+.topCategory .nametop span {
+    background-color: #0f3460;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 50px;
+    margin: 5px;
+    position: absolute;
+    top: 0;
+}
+
+.topCategory .nametop .tleft {
+    left: 0;
+}
+
+.topCategory .nametop .tright {
+    background-color: aliceblue;
+    color: #000;
+    position: absolute;
+    right: 0;
+}
+
+
+/*-------------------- TOP CATEGORY END --------------------*/
