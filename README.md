@@ -31,3 +31,11 @@
 ## redux-toolkit 활용
 
 ## swiper.js 활용
+
+## ClassList를 조작하고 싶을 때
+
+- useRef를 참조해서 조작하기
+
+## 특정 주소에서 특정 컴포넌트 제외
+
+- useLocation 참조

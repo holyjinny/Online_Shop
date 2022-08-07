@@ -1,10 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
+  const { pathname } = useLocation();
+
+  if (pathname === "/login") return null;
+
   return (
     <>
       <footer>

@@ -13,6 +13,7 @@ import NotFound from "./components/notfound/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./containers/footer/Footer";
+import Login from "./components/login/Login";
 
 function App() {
   // step 1: fetch data from database
@@ -24,6 +25,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Pages />}></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route path="/pages" element={<NotFound />}></Route>
           <Route path="/product/:productId" element={<ProductDetail />}></Route>
           <Route path="/cart" element={<Cart />}></Route>

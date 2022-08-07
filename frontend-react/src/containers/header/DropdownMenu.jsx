@@ -43,7 +43,9 @@ const DropdownMenu = () => {
       >
         <div className="menu">
           <DropdownItem leftIcon={<FontAwesomeIcon icon={faUser} />}>
-            <p>My Profile</p>
+            <Link to={"/login"}>
+              <p>Login</p>
+            </Link>
           </DropdownItem>
           <DropdownItem
             leftIcon={<FontAwesomeIcon icon={faGear} />}
