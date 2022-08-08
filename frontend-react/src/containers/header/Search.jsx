@@ -8,7 +8,6 @@ import {
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import UserService from "../../axios/UserService";
 import { useSelector } from "react-redux";
 import store from "../../redux-toolkit/store";
 import { getTotals } from "../../redux-toolkit/features/cartSlice";

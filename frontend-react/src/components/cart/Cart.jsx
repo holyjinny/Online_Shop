@@ -3,7 +3,6 @@ import { faShop } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import UserService from "../../axios/UserService";
 import {
   decreaseCart,
   removeFromCart,

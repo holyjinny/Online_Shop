@@ -39,3 +39,8 @@
 ## 특정 주소에서 특정 컴포넌트 제외
 
 - useLocation 참조
+
+## Spring @RestController
+
+- @Controller + @ResponseBody
+- 주용도 : Json 형태로 객체 데이터를 반환

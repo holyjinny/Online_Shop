@@ -7,7 +7,7 @@ import "./Footer.css";
 const Footer = () => {
   const { pathname } = useLocation();
 
-  if (pathname === "/login") return null;
+  if (pathname === "/login" || pathname === "/userList") return null;
 
   return (
     <>
