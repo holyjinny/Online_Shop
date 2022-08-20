@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux-toolkit/features/cartSlice";
 import Stars from "./Stars";
 import { useGetAllProductsQuery } from "../../redux-toolkit/features/productsAPI";
+import { Link } from "react-router-dom";
 
 const FlashProduct = () => {
   const { data, error, isLoading } = useGetAllProductsQuery();
@@ -35,7 +36,9 @@ const FlashProduct = () => {
           {data?.map((product) => (
             <div key={product.id} className="flash">
               <div className="content">
-                <img src={product.image} alt={product.title} />
+                <Link to={`/product/${product.id}`}>
+                  <img src={product.image} alt={product.title} />
+                </Link>
                 <div className="flash-like">
                   <label>0</label> <br />
                   <FontAwesomeIcon icon={faHeart} className="fa fa-heart" />
