@@ -1,18 +1,11 @@
 package com.onlineshop.project.repository;
 
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.onlineshop.project.model.User;
+import com.onlineshop.project.entity.UserEntity;
 
-public interface UserRepository {
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    // 회원 가입 기능
-    User register(User user);
-
-    // 회원 찾기
-    Optional<User> findById(Long id);
-
-    // 회원 목록
-    List<User> findAll();
 }
