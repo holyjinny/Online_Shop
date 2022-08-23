@@ -5,42 +5,18 @@ import {
   faEnvelope,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import "./Login.css";
 import LoginBG from "../../assets/banner/Login-bg.png";
 import RegisterBG from "../../assets/banner/Register-bg.png";
-import { Link, useNavigate } from "react-router-dom";
-import UserApi from "../../axios/UserApi";
+
+import UserService from "../../services/userService/UserService";
+import { Formik } from "formik";
+import { Link } from "react-router-dom";
+import * as Yup from "yup";
 
 const Login = () => {
   const loginClassRef = useRef(null);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [phone, setPhone] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-
-  const navigate = useNavigate();
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    try {
-      await UserApi.userRegister(
-        email,
-        password,
-        name,
-        age,
-        phone,
-        profileImage
-      );
-    } catch (error) {
-      console.log(error);
-    } finally {
-      navigate("/");
-    }
-  }
 
   function changeRegisterForm() {
     loginClassRef.current.classList.add("sign-up-mode");
@@ -55,15 +31,16 @@ const Login = () => {
       <div className="login-container" ref={loginClassRef}>
         <div className="forms-container">
           <div className="signin-signup">
+            {/* 로그인 */}
             <form className="sign-in-form">
-              <h2 className="title">Sign in</h2>
+              <h2 className="title">Welcome</h2>
               <div className="input-field">
                 <FontAwesomeIcon icon={faUser} className="fa fa-user" />
-                <input type="text" placeholder="Username" />
+                <input type="email" placeholder="email" required />
               </div>
               <div className="input-field">
                 <FontAwesomeIcon icon={faLock} className="fa fa-lock" />
-                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="password" required />
               </div>
               <input type="submit" value="Login" className="btn solid" />
               <p className="social-text">Or Sign in with social platforms</p>
@@ -84,107 +61,107 @@ const Login = () => {
             </form>
 
             {/* 회원가입 */}
-            <form className="sign-up-form" onSubmit={handleSubmit}>
-              <h2 className="title">Sign up</h2>
+            <Formik
+              initialValues={{ email: "", password: "", name: "" }}
+              validationSchema={Yup.object({
+                email: Yup.string()
+                  .email("Invalid email address")
+                  .required("Required"),
+                name: Yup.string()
+                  .max(4, "올바른 형식으로 작성해주세요.")
+                  .required("Required"),
+                password: Yup.string()
+                  .min(4, "4글자 이상 입력해주세요.")
+                  .required("Required"),
+              })}
+              onSubmit={(values, { setSubmitting }) => {
+                setTimeout(() => {
+                  UserService.saveUser(values)
+                    .then((response) => {
+                      console.log(response);
+                      changeLoginForm();
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                }, 400);
+              }}
+            >
+              {(formik) => (
+                /**
+                 * 회원가입 양식
+                 */
+                <form className="sign-up-form" onSubmit={formik.handleSubmit}>
+                  <h2 className="title">회원가입</h2>
 
-              <div className="input-field">
-                <FontAwesomeIcon icon={faEnvelope} className="fa fa-envelope" />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  onChange={(event) => {
-                    setEmail(event.target.value);
-                  }}
-                />
-              </div>
+                  {/* 이메일 */}
+                  <div className="input-field">
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="fa fa-envelope"
+                    />
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder="이메일"
+                      {...formik.getFieldProps("email")}
+                    />
+                  </div>
+                  {formik.touched.email && formik.errors.email ? (
+                    <div>{formik.errors.email}</div>
+                  ) : null}
 
-              <div className="input-field">
-                <FontAwesomeIcon icon={faLock} className="fa fa-lock" />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                  }}
-                />
-              </div>
+                  {/* 이름 */}
+                  <div className="input-field">
+                    <FontAwesomeIcon icon={faUser} className="fa fa-envelope" />
+                    <input
+                      id="name"
+                      type="text"
+                      placeholder="이름"
+                      {...formik.getFieldProps("name")}
+                    />
+                  </div>
+                  {formik.touched.name && formik.errors.name ? (
+                    <div>{formik.errors.name}</div>
+                  ) : null}
 
-              {/* <div className="input-field">
-                <FontAwesomeIcon icon={faLock} className="fa fa-lock" />
-                <input
-                  type="password"
-                  name="confirmPw"
-                  placeholder="confirm password"
-                />
-              </div> */}
+                  {/* 비밀번호 */}
+                  <div className="input-field">
+                    <FontAwesomeIcon icon={faLock} className="fa fa-envelope" />
+                    <input
+                      id="password"
+                      type="password"
+                      placeholder="비밀번호"
+                      {...formik.getFieldProps("password")}
+                    />
+                  </div>
+                  {formik.touched.password && formik.errors.password ? (
+                    <div>{formik.errors.password}</div>
+                  ) : null}
 
-              <div className="input-field">
-                <FontAwesomeIcon icon={faUser} className="fa fa-user" />
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Username"
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-              </div>
+                  <input type="submit" className="btn" value="회원가입" />
 
-              <div className="input-field">
-                <FontAwesomeIcon icon={faUser} className="fa fa-user" />
-                <input
-                  type="text"
-                  name="age"
-                  placeholder="Age"
-                  onChange={(event) => {
-                    setAge(event.target.value);
-                  }}
-                />
-              </div>
-
-              <div className="input-field">
-                <FontAwesomeIcon icon={faUser} className="fa fa-user" />
-                <input
-                  type="text"
-                  name="phone"
-                  placeholder="Phone"
-                  onChange={(event) => {
-                    setPhone(event.target.value);
-                  }}
-                />
-              </div>
-
-              <div className="input-field">
-                <FontAwesomeIcon icon={faUser} className="fa fa-user" />
-                <input
-                  type="text"
-                  name="profileImage"
-                  placeholder="ProfileImage"
-                  onChange={(event) => {
-                    setProfileImage(event.target.value);
-                  }}
-                />
-              </div>
-
-              <input type="submit" className="btn" value="Sign up" />
-              <p className="social-text">Or Sign up with social platforms</p>
-              <div className="social-media">
-                <Link to={""} className="social-icon">
-                  <FontAwesomeIcon icon={faLink} className="fa fa-link" />
-                </Link>
-                <Link to={""} className="social-icon">
-                  <FontAwesomeIcon icon={faLink} className="fa fa-link" />
-                </Link>
-                <Link to={""} className="social-icon">
-                  <FontAwesomeIcon icon={faLink} className="fa fa-link" />
-                </Link>
-                <Link to={""} className="social-icon">
-                  <FontAwesomeIcon icon={faLink} className="fa fa-link" />
-                </Link>
-              </div>
-            </form>
+                  {/* Social */}
+                  <p className="social-text">
+                    Or Sign up with social platforms
+                  </p>
+                  <div className="social-media">
+                    <Link to={""} className="social-icon">
+                      <FontAwesomeIcon icon={faLink} className="fa fa-link" />
+                    </Link>
+                    <Link to={""} className="social-icon">
+                      <FontAwesomeIcon icon={faLink} className="fa fa-link" />
+                    </Link>
+                    <Link to={""} className="social-icon">
+                      <FontAwesomeIcon icon={faLink} className="fa fa-link" />
+                    </Link>
+                    <Link to={""} className="social-icon">
+                      <FontAwesomeIcon icon={faLink} className="fa fa-link" />
+                    </Link>
+                  </div>
+                </form>
+              )}
+            </Formik>
           </div>
         </div>
 

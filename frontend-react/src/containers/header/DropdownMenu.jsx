@@ -8,11 +8,14 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import { useDispatch } from "react-redux";
 
 const DropdownMenu = () => {
   const [activeMenu, setActiveMenu] = useState("main");
 
   const [scroll, setScroll] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -22,15 +25,19 @@ const DropdownMenu = () => {
 
   function DropdownItem(props) {
     return (
-      <p
+      <div
         className="menu-item"
         onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
       >
         <span className="icon-button">{props.leftIcon}</span>
         {props.children}
         <span className="icon-right">{props.rightIcon}</span>
-      </p>
+      </div>
     );
+  }
+
+  function handleLogout() {
+    console.log("로그아웃");
   }
 
   return (
@@ -42,9 +49,10 @@ const DropdownMenu = () => {
         classNames="menu-primary"
       >
         <div className="menu">
+          <span>회원 아이디가 들어갈 부분</span>
           <DropdownItem leftIcon={<FontAwesomeIcon icon={faUser} />}>
             <Link to={"/login"}>
-              <p>Login</p>
+              <p>로그인</p>
             </Link>
           </DropdownItem>
           <DropdownItem leftIcon={<FontAwesomeIcon icon={faGear} />}>

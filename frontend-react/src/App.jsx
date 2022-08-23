@@ -13,7 +13,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./containers/footer/Footer";
 import Login from "./components/login/Login";
-import UserList from "./components/userList/UserList";
 import ProductSingle from "./components/product/ProductSingle";
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Pages />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/userList" element={<UserList />}></Route>
           <Route path="/pages" element={<NotFound />}></Route>
           <Route path="/product/:productId" element={<ProductSingle />}></Route>
           <Route path="/cart" element={<Cart />}></Route>

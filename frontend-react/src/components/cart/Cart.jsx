@@ -103,7 +103,7 @@ const Cart = () => {
                   <span className="amount">${cart.cartTotalAmount}</span>
                 </div>
 
-                <p>결제해랍</p>
+                <p>결제</p>
                 <button>Check out</button>
                 <div className="continue-shopping">
                   <Link to={"/"}>

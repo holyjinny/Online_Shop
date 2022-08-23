@@ -44,3 +44,19 @@
 
 - @Controller + @ResponseBody
 - 주용도 : Json 형태로 객체 데이터를 반환
+
+## 전반적인 Form = Formik과 유효성 검사 라이브러리 Yup 사용해보기
+
+- npm i formik
+- npm i yup
+
+## Spring Security + JWT
+
+- 가장 먼저 Security와 Filter관련 설정 해주기
+
+## RapidAPI (postman 같은 기능)
+
+- Error parsing HTTP request header
+  Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+해결법 : https -> http://localhost:8080/api/user/register
